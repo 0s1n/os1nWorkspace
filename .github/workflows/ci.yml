@@ -32,5 +32,5 @@ jobs:
 
       # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
       # - run: yarn nx-cloud record -- echo Hello World
-      - run: yarn nx affected -t lint test build
+      - run: yarn nx affected -t lint test build --verbose
       - run: yarn nx affected --parallel 1 -t e2e-ci
