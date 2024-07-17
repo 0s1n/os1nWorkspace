@@ -35,9 +35,27 @@ jobs:
           node-version: 20
           cache: 'yarn'
 
-      - run: yarn install --frozen-lockfile
+      - name: Install dependencies
+        run: yarn install --inmutable
 
-      # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
-      # - run: yarn nx-cloud record -- echo Hello World
-      - run: yarn nx affected -t lint test build --verbose
-      - run: yarn nx affected --parallel 1 -t e2e-ci
+      - name: Lint check
+        run: yarn affected:lint
+
+  build:
+    name: Build 🏗
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+        with:
+          # Required by nrwl/nx-set-shas
+          fetch-depth: 0
+
+      - name: 'Derive appropriate SHAs for base and head for `nx affected` commands'
+        uses: nrwl/nx-set-shas@v3
+
+      - name: 'Set up dependencies'
+        uses: ./.github/actions/setup-dependencies
+
+      - name: 'Build application if affected by changes in feature branch'
+        run: yarn affected:build
