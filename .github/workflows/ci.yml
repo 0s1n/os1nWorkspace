@@ -11,33 +11,14 @@ permissions:
   contents: read
 
 jobs:
-  # avoid_redundant_ci:
-  #   name: Avoid redundant CI ❌
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Cancel previous redundant CI runs
-  #       uses: styfle/cancel-workflow-action@0.12.1
-  #       with:
-  #         access_token: ${{ github.token }}
-
-  build:
-    name: Build 🏗
+  avoid_redundant_ci:
+    name: Avoid redundant CI ❌
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout source code
-        uses: actions/checkout@v4.1.7
+      - name: Cancel previous redundant CI runs
+        uses: styfle/cancel-workflow-action@0.12.1
         with:
-          # Required by nrwl/nx-set-shas
-          fetch-depth: 0
-
-      - name: 'Derive appropriate SHAs for base and head for `nx affected` commands'
-        uses: nrwl/nx-set-shas@v4.0.6
-
-      - name: 'Set up dependencies'
-        uses: ./.github/actions/setup-dependencies
-
-      - name: 'Build application if affected by changes in feature branch'
-        run: yarn affected:build
+          access_token: ${{ github.token }}
 
   code-quality:
     name: Code Quality 🧪
@@ -49,17 +30,49 @@ jobs:
           # Required by nrwl/nx-set-shas
           fetch-depth: 0
 
-      - name: 'Derive appropriate SHAs for base and head for `nx affected` commands'
-        uses: nrwl/nx-set-shas@v4.0.6
+      - name: Set up Node.js ⚙
+        uses: actions/setup-node@v4.0.3
+        with:
+          node-version: 20
+          cache: 'yarn'
 
-      - name: Set up dependencies
-        uses: ./.github/actions/setup-dependencies
+      - name: 'Set up dependencies 📚'
+        run: yarn --inmmutable
+
+      - name: Lint check
+        run: yarn affected:lint
 
       - name: Lint Nx workspace
         run: yarn nx workspace-lint
 
       - name: 'Lint workspace and affected projects'
         run: yarn affected:lint
+
+  build:
+    name: Build 🏗
+    runs-on: ubuntu-latest
+    needs: [code-quality]
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4.1.7
+        with:
+          # Required by nrwl/nx-set-shas
+          fetch-depth: 0
+
+      - name: 'Derive appropriate SHAs for base and head for `nx affected` commands'
+        uses: nrwl/nx-set-shas@v4.0.6
+
+      - name: Set up Node.js ⚙
+        uses: actions/setup-node@v4.0.3
+        with:
+          node-version: 20
+          cache: 'yarn'
+
+      - name: 'Set up dependencies'
+        uses: ./.github/actions/setup-dependencies
+
+      - name: 'Build application if affected by changes in feature branch'
+        run: yarn affected:build
 
   test:
     name: Test 🧪
@@ -75,7 +88,7 @@ jobs:
         uses: nrwl/nx-set-shas@v4.0.6
 
       - name: Set up dependencies
-        uses: ./.github/actions/setup-dependencies
+        run: yarn --inmmutable
 
       - name: Test affected projects
         run: yarn affected:test
@@ -93,8 +106,14 @@ jobs:
       - name: 'Derive appropriate SHAs for base and head for `nx affected` commands'
         uses: nrwl/nx-set-shas@v4.0.6
 
+      - name: Set up Node.js ⚙
+        uses: actions/setup-node@v4.0.3
+        with:
+          node-version: 20
+          cache: 'yarn'
+
       - name: Set up dependencies
-        uses: ./.github/actions/setup-dependencies
+        run: yarn --inmmutable
 
       - name: 'End-to-End tests application if affected by changes in feature branch'
         run: yarn affected:e2e --configuration=production
