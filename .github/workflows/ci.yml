@@ -42,9 +42,6 @@ jobs:
       - name: Lint check
         run: yarn lint:check
 
-      - name: 'Lint workspace and affected projects'
-        run: yarn affected:lint
-
   build:
     name: Build 🏗
     runs-on: ubuntu-latest
