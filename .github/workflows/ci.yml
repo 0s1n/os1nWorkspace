@@ -4,34 +4,117 @@ on:
   push:
     branches:
       - main
-  pull_request:
+  pull_request: {}
 
 permissions:
   actions: read
   contents: read
 
 jobs:
-  main:
+  avoid_redundant_ci:
+    name: Avoid redundant CI ❌
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Cancel previous redundant CI runs
+        uses: styfle/cancel-workflow-action@0.12.1
         with:
+          access_token: ${{ github.token }}
+
+  code-quality:
+    name: Code Quality 🔎
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4.1.7
+        with:
+          # Required by nrwl/nx-set-shas
           fetch-depth: 0
 
-      # Connect your workspace on nx.app and uncomment this to enable task distribution.
-      # The "--stop-agents-after" is optional, but allows idle agents to shut down once the "e2e-ci" targets have been requested
-      # - run: yarn nx-cloud start-ci-run --distribute-on="5 linux-medium-js" --stop-agents-after="e2e-ci"
-
-      # Cache node_modules
-      - uses: actions/setup-node@v3
+      - name: Set up Node.js ⚙
+        uses: actions/setup-node@v4.0.3
         with:
           node-version: 20
           cache: 'yarn'
 
-      - run: yarn install --frozen-lockfile
-      - uses: nrwl/nx-set-shas@v4
+      - name: 'Install dependencies 📚'
+        run: yarn --inmmutable
 
-      # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
-      # - run: yarn nx-cloud record -- echo Hello World
-      - run: yarn nx affected -t lint test build
-      - run: yarn nx affected --parallel 1 -t e2e-ci
+      - name: Lint check
+        run: yarn lint:check
+
+      - name: Lint Nx workspace
+        run: yarn nx workspace-lint
+
+      - name: 'Lint workspace and affected projects'
+        run: yarn affected:lint
+
+  build:
+    name: Build 🏗
+    runs-on: ubuntu-latest
+    needs: [code-quality, test, e2e]
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4.1.7
+        with:
+          # Required by nrwl/nx-set-shas
+          fetch-depth: 0
+
+      - name: 'Derive appropriate SHAs for base and head for `nx affected` commands'
+        uses: nrwl/nx-set-shas@v4.0.6
+
+      - name: Set up Node.js ⚙
+        uses: actions/setup-node@v4.0.3
+        with:
+          node-version: 20
+          cache: 'yarn'
+
+      - name: 'Set up dependencies'
+        uses: ./.github/actions/setup-dependencies
+
+      - name: 'Build application if affected by changes in feature branch'
+        run: yarn affected:build
+
+  test:
+    name: Test 🧪
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4.1.7
+        with:
+          # Required by nrwl/nx-set-shas
+          fetch-depth: 0
+
+      - name: 'Derive appropriate SHAs for base and head for `nx affected` commands'
+        uses: nrwl/nx-set-shas@v4.0.6
+
+      - name: Set up dependencies
+        run: yarn --inmmutable
+
+      - name: Test affected projects
+        run: yarn affected:test
+
+  e2e:
+    name: E2E 🧪
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4.1.7
+        with:
+          # Required by nrwl/nx-set-shas
+          fetch-depth: 0
+
+      - name: 'Derive appropriate SHAs for base and head for `nx affected` commands'
+        uses: nrwl/nx-set-shas@v4.0.6
+
+      - name: Set up Node.js ⚙
+        uses: actions/setup-node@v4.0.3
+        with:
+          node-version: 20
+          cache: 'yarn'
+
+      - name: Set up dependencies
+        run: yarn --inmmutable
+
+      - name: 'End-to-End tests application if affected by changes in feature branch'
+        run: yarn affected:e2e --configuration=production
