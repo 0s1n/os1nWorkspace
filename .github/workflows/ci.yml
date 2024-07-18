@@ -42,9 +42,6 @@ jobs:
       - name: Lint check
         run: yarn lint:check
 
-      - name: Lint Nx workspace
-        run: yarn nx workspace-lint
-
       - name: 'Lint workspace and affected projects'
         run: yarn affected:lint
 
