@@ -1,17 +1,25 @@
-import { nxE2EPreset } from '@nx/cypress/plugins/cypress-preset';
+import { nxE2EPreset } from "@nx/cypress/plugins/cypress-preset";
 
-import { defineConfig } from 'cypress';
+import { defineConfig } from "cypress";
 
 export default defineConfig({
   e2e: {
     ...nxE2EPreset(__filename, {
-      cypressDir: 'src',
+      cypressDir: "src",
       webServerCommands: {
-        default: 'nx run angular-ecommerce:serve:development',
-        production: 'nx run angular-ecommerce:serve:production',
+        default: "nx run angular-ecommerce:serve:development",
+        production: "nx run angular-ecommerce:serve:production",
       },
-      ciWebServerCommand: 'nx run angular-ecommerce:serve-static',
+      ciWebServerCommand: "nx run angular-ecommerce:serve-static",
     }),
-    baseUrl: 'http://localhost:4200',
+    baseUrl: "http://localhost:4200",
+  },
+
+  component: {
+    devServer: {
+      framework: "angular",
+      bundler: "webpack",
+    },
+    specPattern: "**/*.cy.ts",
   },
 });
