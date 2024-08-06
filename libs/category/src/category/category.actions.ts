@@ -10,5 +10,5 @@ export const loadCategorySuccess = createAction(
 
 export const loadCategoryFailure = createAction(
   '[Category/API] Load Category Failure',
-  props<{ error: unknown }>()
+  props<{ error: any }>()
 );
