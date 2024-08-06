@@ -1,4 +1,4 @@
-import { createReducer, on, Action, createFeature } from '@ngrx/store';
+import { createReducer, on, Action } from '@ngrx/store';
 
 import * as CategoryActions from './category.actions';
 
