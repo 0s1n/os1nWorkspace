@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { selectAllCategory } from '@os1n-workspace/category';
 import { Store } from '@ngrx/store';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-main-nav',
@@ -18,14 +18,14 @@ import { RouterLink } from '@angular/router';
   styleUrl: './main-nav.component.css',
   standalone: true,
   imports: [
+    CommonModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
     MatListModule,
     MatIconModule,
-    AsyncPipe,
     RouterLink,
-    CommonModule,
+    RouterOutlet,
   ],
 })
 export class MainNavComponent {
