@@ -2,7 +2,7 @@
   "name": "product",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/product/src",
-  "prefix": "lib",
+  "prefix": "product",
   "projectType": "library",
   "tags": [],
   "targets": {
