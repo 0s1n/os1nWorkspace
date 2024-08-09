@@ -15,8 +15,6 @@ import {
 } from '@os1n-workspace/category';
 import { provideHttpClient } from '@angular/common/http';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
-// import * as fromCategory2 from './+state/category2.reducer';
-// import { Category2Effects } from './+state/category2.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [

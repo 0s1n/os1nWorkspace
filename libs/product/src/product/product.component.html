@@ -1,2 +1,28 @@
-<h1 style="color: white">{{ categoryName }}</h1>
+<h1>{{ categoryName }}</h1>
 <hr />
+<ng-container *ngFor="let product of product$ | async">
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title>{{ product?.title }}</mat-card-title>
+      <mat-card-subtitle>{{ product?.category }}</mat-card-subtitle>
+      <mat-card-subtitle>{{ product?.price | currency }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <img
+      mat-card-lg-image
+      src="{{ product?.image }}"
+      alt="Photo of a Shiba Inu"
+    />
+
+    <mat-card-content>
+      <p>
+        {{ product?.description }}
+      </p>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary">Buy Now</button>
+      <button mat-raised-button color="accent">Add to Cart</button>
+    </mat-card-actions>
+  </mat-card>
+</ng-container>
