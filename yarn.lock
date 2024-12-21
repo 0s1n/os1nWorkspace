@@ -62,7 +62,7 @@
     css-loader "7.1.1"
     esbuild-wasm "0.21.3"
     fast-glob "3.3.2"
-    http-proxy-middleware "3.0.0"
+    http-proxy-middleware "3.0.3"
     https-proxy-agent "7.0.4"
     inquirer "9.2.22"
     istanbul-lib-instrument "6.0.2"
@@ -7756,9 +7756,9 @@ http-proxy-agent@^7.0.0:
     agent-base "^7.1.0"
     debug "^4.3.4"
 
-http-proxy-middleware@3.0.0:
+http-proxy-middleware@3.0.3:
   version "3.0.0"
-  resolved "https://registry.yarnpkg.com/http-proxy-middleware/-/http-proxy-middleware-3.0.0.tgz#550790357d6f92a9b82ab2d63e07343a791cf26b"
+  resolved "https://registry.yarnpkg.com/http-proxy-middleware/-/http-proxy-middleware-3.0.3.tgz#550790357d6f92a9b82ab2d63e07343a791cf26b"
   integrity sha512-36AV1fIaI2cWRzHo+rbcxhe3M3jUDCNzc4D5zRl57sEWRAxdXYtw7FSQKYY6PDKssiAKjLYypbssHk+xs/kMXw==
   dependencies:
     "@types/http-proxy" "^1.17.10"
@@ -7768,9 +7768,9 @@ http-proxy-middleware@3.0.0:
     is-plain-obj "^3.0.0"
     micromatch "^4.0.5"
 
-http-proxy-middleware@^2.0.3:
+http-proxy-middleware@^3.0.3:
   version "2.0.6"
-  resolved "https://registry.yarnpkg.com/http-proxy-middleware/-/http-proxy-middleware-2.0.6.tgz#e1a4dd6979572c7ab5a4e4b55095d1f32a74963f"
+  resolved "https://registry.yarnpkg.com/http-proxy-middleware/-/http-proxy-middleware-3.0.3.tgz#e1a4dd6979572c7ab5a4e4b55095d1f32a74963f"
   integrity sha512-ya/UeJ6HVBYxrgYotAZo1KvPWlgB48kUJLDePFeneHsVujFaW5WNj2NgWCAE//B1Dl02BIfYlpNgBy8Kf8Rjmw==
   dependencies:
     "@types/http-proxy" "^1.17.8"
@@ -12157,7 +12157,7 @@ webpack-dev-server@5.0.4:
     express "^4.17.3"
     graceful-fs "^4.2.6"
     html-entities "^2.4.0"
-    http-proxy-middleware "^2.0.3"
+    http-proxy-middleware "^3.0.3"
     ipaddr.js "^2.1.0"
     launch-editor "^2.6.1"
     open "^10.0.3"
@@ -12193,7 +12193,7 @@ webpack-dev-server@^4.9.3:
     express "^4.17.3"
     graceful-fs "^4.2.6"
     html-entities "^2.3.2"
-    http-proxy-middleware "^2.0.3"
+    http-proxy-middleware "^3.0.3"
     ipaddr.js "^2.0.1"
     launch-editor "^2.6.0"
     open "^8.0.9"
