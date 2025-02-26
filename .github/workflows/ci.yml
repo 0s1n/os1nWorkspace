@@ -20,18 +20,30 @@ jobs:
         with:
           access_token: ${{ github.token }}
 
+  clean-cache:
+    name: Clean cache 🧹
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove node_modules directory
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/yarn.lock') }}
+
   code-quality:
     name: Code Quality 🔎
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4
         with:
           # Required by nrwl/nx-set-shas
           fetch-depth: 0
 
       - name: Set up Node.js ⚙
-        uses: actions/setup-node@v4.0.3
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'yarn'
