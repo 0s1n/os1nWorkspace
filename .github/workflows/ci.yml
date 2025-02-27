@@ -20,6 +20,15 @@ jobs:
         with:
           access_token: ${{ github.token }}
 
+  corepack-status:
+    name: Corepack status
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check corepack version
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
   code-quality:
     name: Code Quality 🔎
     runs-on: ubuntu-latest
