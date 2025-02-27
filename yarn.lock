@@ -5585,11 +5585,11 @@ __metadata:
   linkType: hard
 
 "@swc/types@npm:^0.1.8":
-  version: 0.1.18
-  resolution: "@swc/types@npm:0.1.18"
+  version: 0.1.19
+  resolution: "@swc/types@npm:0.1.19"
   dependencies:
     "@swc/counter": "npm:^0.1.3"
-  checksum: 10c0/0c34ed1670daeb991de87a79c859d68980def32caf02999ef906859d02a2ee13a7f998e84b40022ce970fdceea9f77005e4965038f5139b93035956118aae7ea
+  checksum: 10c0/21b727d97d38f1bdbe9ef8fdf693bca19ebd5334ab32d7d2624a925d9adc8934935ad0f168cdbfd938b2f4b754a1fb7581f253bf47ab416177b6ac2c5c72578b
   languageName: node
   linkType: hard
 
