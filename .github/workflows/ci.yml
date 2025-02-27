@@ -37,9 +37,9 @@ jobs:
 
       - name: 'Enable corepack'
         run: corepack enable
-        
+
       - name: 'Install dependencies 📚'
-        run: yarn install --immutable --immutable-cache
+        run: yarn install --immutable --immutable-cache --check-cache
 
       - name: Lint check
         run: yarn lint:check
