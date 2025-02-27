@@ -75,7 +75,7 @@
     "@typescript-eslint/eslint-plugin": "^7.3.0",
     "@typescript-eslint/parser": "^7.3.0",
     "@typescript-eslint/utils": "^8.0.0-alpha.28",
-    "cypress": "^13.13.0",
+    "cypress": "^14.1.0",
     "eslint": "~8.57.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-cypress": "^2.13.4",
@@ -91,5 +91,5 @@
     "ts-node": "10.9.1",
     "typescript": "~5.4.2"
   },
-  "packageManager": "yarn@4.6.0"
+  "packageManager": "yarn@1.22.22"
 }
