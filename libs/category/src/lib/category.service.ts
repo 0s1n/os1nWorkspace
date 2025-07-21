@@ -9,7 +9,7 @@ export class CategoryService {
 
   getCategories() {
     return this.http.get<string[]>(
-      'http://fakestoreapi.com/products/categories'
+      'https://fakestoreapi.com/products/categories'
     );
   }
 }

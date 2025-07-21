@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@os1n-workspace/category": ["libs/category/src/index.ts"]
+      "@os1n-workspace/category": ["libs/category/src/index.ts"],
+      "@os1n-workspace/product": ["libs/product/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
