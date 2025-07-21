@@ -31,11 +31,11 @@ describe('Product Selectors', () => {
             description: 'Product B description',
             price: 20,
             image: 'image',
-          },
+          }
         ],
         {
           ...initialProductState,
-          selectedId: 'PRODUCT-BBB',
+          selectedId: 2, // Cambiado para que coincida con un ID existente
           error: ERROR_MSG,
           loaded: true,
         }
@@ -46,17 +46,20 @@ describe('Product Selectors', () => {
   describe('Product Selectors', () => {
     it('selectAllProduct() should return the list of Product', () => {
       const results = ProductSelectors.selectAllProduct(state);
-      const selId = getProductId(results[1]);
 
-      expect(results.length).toBe(3);
-      expect(selId).toBe('PRODUCT-BBB');
+      expect(results.length).toBe(2);
+      expect(results[0].id).toBe(1);
+      expect(results[1].id).toBe(2);
+      expect(results[0].title).toBe('Product A');
+      expect(results[1].title).toBe('Product B');
     });
 
     it('selectEntity() should return the selected Entity', () => {
       const result = ProductSelectors.selectEntity(state) as ProductEntity;
-      const selId = getProductId(result);
 
-      expect(selId).toBe('PRODUCT-BBB');
+      expect(result).toBeDefined();
+      expect(result.id).toBe(2);
+      expect(result.title).toBe('Product B');
     });
 
     it('selectProductLoaded() should return the current "loaded" status', () => {

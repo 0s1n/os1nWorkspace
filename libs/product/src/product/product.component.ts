@@ -24,10 +24,12 @@ export class ProductComponent implements OnChanges {
   constructor(private readonly store: Store) {}
 
   ngOnChanges() {
-    this.store.dispatch(
-      productActions.loadProduct({
-        categoryName: this.categoryName,
-      })
-    );
+    if (this.categoryName) {
+      this.store.dispatch(
+        productActions.loadProduct({
+          categoryName: this.categoryName,
+        })
+      );
+    }
   }
 }
