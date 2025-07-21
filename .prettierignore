@@ -4,3 +4,6 @@
 /.nx/cache
 /.nx/workspace-data
 .angular
+.yarn
+yarn.lock
+nx.json
