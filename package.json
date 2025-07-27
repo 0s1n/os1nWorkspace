@@ -95,5 +95,8 @@
     "ts-node": "10.9.1",
     "typescript": "~5.4.2"
   },
+  "resolutions": {
+    "form-data": "^4.0.4"
+  },
   "packageManager": "yarn@1.22.22"
 }
